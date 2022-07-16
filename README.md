@@ -8,7 +8,7 @@ To load the addon everytime you log in, add "lua load attendance" to your "Windo
 
 This addon will create a CSV file called "attendance.csv" in the attendance addon folder.
 
-To test this add on, zone into Heaven's Tower in Windurst.
+To test this add on, zone into Heaven's Tower from Windurst Walls.
 When you do this, it will wait 30 seconds and then add the entry to the CSV file.
 If the CSV file does not exist, it will create it.
 
