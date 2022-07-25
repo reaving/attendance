@@ -127,23 +127,27 @@ function SaveAllianceList(eventType,eventZone)
     -- Use the "for" loop to check each entry.
     -- We look for entries where the "value" is a table, and from that table, we can get the character name.
     
-    -- For each entry in the "get party" dictionary, get the "index" and "value"
-    for i,v in pairs(windower.ffxi.get_party()) do
-        
-        -- Is the "value" a table?
-        if type(v) == 'table' then
-            -- Yes.  Add an entry to the attendance file with the following information:
-            -- event type (Dynamis or Omen), date, month/day, date/time, zone name, character name, the number one
-            -- 
-            -- For example:
-            -- Dynamis,2022-07-02,0702,2022-07-02 20:48,Dynamis - Bastok [D],Wunjo,1
-            -- Omen,2022-07-03,0703,2022-07-03 20:50,Reisenjima Henge,Wunjo,1
+    if windower.ffxi.get_party().alliance_count > 3 or eventType == 'TEST' then
+        -- For each entry in the "get party" dictionary, get the "index" and "value"
+        for i,v in pairs(windower.ffxi.get_party()) do
             
-            -- This is not a test.
-            file:append(eventType..','..eventDate..','..eventMMDD..','..eventDateTime..','..eventZone..','..v.name..',1\n')
+            -- Is the "value" a table?
+            if type(v) == 'table' then
+                -- Yes.  Add an entry to the attendance file with the following information:
+                -- event type (Dynamis or Omen), date, month/day, date/time, zone name, character name, the number one
+                -- 
+                -- For example:
+                -- Dynamis,2022-07-02,0702,2022-07-02 20:48,Dynamis - Bastok [D],Wunjo,1
+                -- Omen,2022-07-03,0703,2022-07-03 20:50,Reisenjima Henge,Wunjo,1
+                
+                -- This is not a test.
+                file:append(eventType..','..eventDate..','..eventMMDD..','..eventDateTime..','..eventZone..','..v.name..',1\n')
+            end
         end
+        
+        -- Tell the user that the work is done.
+        log('Alliance List Recorded')
+    else
+        log('Not enough players in party, did not record alliance list')
     end
-    
-    -- Tell the user that the work is done.
-    log('Alliance List Recorded')
 end
