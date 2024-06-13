@@ -48,19 +48,35 @@ windower.register_event('zone change',function(new_id,old_id)
         log('Taking attendance for Dynamis[D]')
         SaveAllianceList('Dynamis',zoneName)
         
-    elseif zoneName == "Heavens Tower" then
-        -- Test this functionality by zoning into "Heaven's Tower".
-        WaitCountDown()
-        log('Testing')
-        SaveAllianceList('TEST',zoneName)
+    -- elseif zoneName == "Heavens Tower" then
+        -- -- Test this functionality by zoning into "Heaven's Tower".
+        -- WaitCountDown()
+        -- log('Testing')
+        -- SaveAllianceList('TEST',zoneName)
         
     end
 end)
 
+-- To run this code, enter these commands into your console:
+--      attend run <name>
+windower.register_event('addon command', function (...)
+	local args = T{...}:map(string.lower)
+	if args[1] == "run" then
+        log('Taking attendance ['..args[2]..']')
+        SaveAllianceList('User',args[2])
+	end
+end)
+
 -- There's probably a better way to do this, but this way is simple.
 function WaitCountDown()
-    -- Wait for 30 seconds so that everyone in the alliance can load in.
+    -- Wait so that everyone in the alliance can load in.
     -- The log text only appears on the user's screen and nowhere else.
+    coroutine.sleep(5)
+    log('Taking attendance in 40 seconds')
+    coroutine.sleep(5)
+    log('Taking attendance in 35 seconds')
+    coroutine.sleep(5)
+    log('Taking attendance in 30 seconds')
     coroutine.sleep(5)
     log('Taking attendance in 25 seconds')
     coroutine.sleep(5)
@@ -127,6 +143,7 @@ function SaveAllianceList(eventType,eventZone)
     -- Use the "for" loop to check each entry.
     -- We look for entries where the "value" is a table, and from that table, we can get the character name.
     
+    -- Only run if you have more than 3 people in alliance/party or this is a test zone.
     if windower.ffxi.get_party().alliance_count > 3 or eventType == 'TEST' then
         -- For each entry in the "get party" dictionary, get the "index" and "value"
         for i,v in pairs(windower.ffxi.get_party()) do
