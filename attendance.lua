@@ -48,11 +48,11 @@ windower.register_event('zone change',function(new_id,old_id)
         log('Taking attendance for Dynamis[D]')
         SaveAllianceList('Dynamis',zoneName)
         
-    -- elseif zoneName == "Heavens Tower" then
-        -- -- Test this functionality by zoning into "Heaven's Tower".
-        -- WaitCountDown()
-        -- log('Testing')
-        -- SaveAllianceList('TEST',zoneName)
+    elseif zoneName == "Heavens Tower" then
+        -- Test this functionality by zoning into "Heaven's Tower".
+        WaitCountDown()
+        log('Testing')
+        SaveAllianceList('TEST',zoneName)
         
     end
 end)
